@@ -3,7 +3,7 @@
      <keep-alive>
      <!-- <router-view :datas="datas" @upup="change" ref="chil"></router-view>-->
      <transition name="fade">
-     	  <router-view :imgs="imgs"></router-view>
+     	  <router-view v-on:loginData="loginData" :data="data"></router-view>
      </transition>	
      
     </keep-alive>
@@ -12,30 +12,33 @@
 <script type="text/ecmascript-6">
 	 export default {
 	 	 data(){
-	 	 	/*return {
-          datas:123,
-          that:this
-       };*/
+	 	 	return {
+          data:{
+            
+          }
+       };
       return {
       	
-      	imgs:['../../../static/images/1.png','../../../static/images/2.png']
+      	
       	
       }
 	 	 },
 	 	  mounted(){
-	 	 
-	 	  	 /*this.$refs.chil.chilFn(1);*/
+	 	   
+	 	  	// this.$refs.chil.chilFn(1);
 	 	  },
 	 	 methods: {
-			  /*  change(msg) {
-			    	 this.datas = msg;
+			   loginData(datas,fn){
+           var name = datas.name;
+           if(datas.data){
+              this.data[name] =  datas.data;
+           }
 			    	
-			    }*/
+            fn(this.data[name]);
+			   }
      }
 	 }
 </script>
-<style lang="stylus" rel="stylesheet/stylus">
-    @import "/static/css/base.css";
-    @import "/static/css/reset.css";
-    @import '../node_modules/vue2-animate/dist/vue2-animate.css';
+<style lang='less'>
+    @import './assets/less/base.less';
 </style>
