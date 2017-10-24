@@ -8,6 +8,7 @@ import address from './components/address/address.vue';
 import classify from './components/classify/classify.vue';
 import ClassifyDetails from './components/classify/ClassifyDetails.vue';
 import searchResult from './components/classify/searchResult.vue';
+import myOrder   from './components/my/myOrder.vue';
 
 const routers = [{
     path: '/',
@@ -58,6 +59,11 @@ const routers = [{
         path: '/address',
         name: "address",
         component: address　　
+    },{　　　　
+        path: '/myOrder',
+        name: "myOrder",
+        component: myOrder,
+        meta: { login: true }　
     }]
 }]
 

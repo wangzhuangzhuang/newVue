@@ -2,9 +2,9 @@
   <div>
      <keep-alive>
      <!-- <router-view :datas="datas" @upup="change" ref="chil"></router-view>-->
-     <transition name="fade">
+    <!-- <transition name="fade">过度动画-->
      	  <router-view v-on:loginData="loginData" :data="data"></router-view>
-     </transition>	
+     <!--</transition>	-->
      
     </keep-alive>
   </div>
@@ -40,5 +40,7 @@
 	 }
 </script>
 <style lang='less'>
-    @import './assets/less/base.less';
+    
+    @import '../static/css/swiper.min.css';
+    @import '../static/css/base.css';
 </style>

@@ -11,53 +11,66 @@
         <div>
 
         	<div class="urlText">
-            	<a class="box box-pack-j box-align-c" href="myOrder.html">
-            		<div>我的订单</div>
-            		<div class="back-r">查看全部订单</div>
-            	</a>
+        		<router-link to="/myOrder">
+	            	<a class="box box-pack-j box-align-c" href="javascript:;">
+	            		<div>我的订单</div>
+	            		<div class="back-r">查看全部订单</div>
+	            	</a>
+            	</router-link>
             </div>
             <div class="urlText">
-	            <a class="box box-pack-j box-align-c" href="customerService.html">
-	                  <div>售后订单</div>
-	                  <div class="back-r">查看售后订单</div>
-	               </a>
+            	<router-link to="/show">
+		            <a class="box box-pack-j box-align-c" href="javascript:;">
+		                  <div>售后订单</div>
+		                  <div class="back-r">查看售后订单</div>
+		            </a>
+	            </router-link>
             </div>
-            <div class="urlText mt-10 border-t">
-            	<a class="box box-pack-j box-align-c" href="identity.html">
-            		<div>我的身份证</div>
-            		<div class="back-r">&nbsp;</div>
-            	</a>
-            </div>
-            <div class="urlText">
-            	<a class="box box-pack-j box-align-c" href="MySite.html">
-            		<div>我的收货地址</div>
-            		<div class="back-r">&nbsp;</div>
-            	</a>
-            </div>
-            <div class="urlText mt-10 border-t">
-            	<a href="Collection.html" class="box box-pack-j box-align-c">
-            		<div>收藏</div>
-            		<div class="back-r">&nbsp;</div>
-            	</a>
+            <div class="urlText mt-10 border-t-e6">
+            	<router-link to="/show">
+	            	<a class="box box-pack-j box-align-c" href="javascript:;">
+	            		<div>我的身份证</div>
+	            		<div class="back-r">&nbsp;</div>
+	            	</a>
+            	</router-link>
             </div>
             <div class="urlText">
-            	<a href="evaluate.html" class="box box-pack-j box-align-c">
-            		<div>我的评价</div>
-            		<div class="back-r">&nbsp;</div>
-            	</a>
+            	<router-link to="/show">
+	            	<a class="box box-pack-j box-align-c" href="javascript:;">
+	            		<div>我的收货地址</div>
+	            		<div class="back-r">&nbsp;</div>
+	            	</a>
+            	</router-link>
+            </div>
+            <div class="urlText mt-10 border-t-e6">
+            	<router-link to="/show">
+	            	<a href="javascript:;" class="box box-pack-j box-align-c">
+	            		<div>收藏</div>
+	            		<div class="back-r">&nbsp;</div>
+	            	</a>
+            	</router-link>
             </div>
             <div class="urlText">
-            	<a class="box box-pack-j box-align-c" href="healthy.html">
-            		<div>健康订制</div>
-            		<div class="back-r">&nbsp;</div>
-            	</a>
+            	<router-link to="/show">
+	            	<a href="javascript:;" class="box box-pack-j box-align-c">
+	            		<div>我的评价</div>
+	            		<div class="back-r">&nbsp;</div>
+	            	</a>
+            	</router-link>
             </div>
-            <div class="urlText mt-10 border-t" id="SignOut" @click="SignOut">
+            <div class="urlText">
+            	<router-link to="/show">
+	            	<a class="box box-pack-j box-align-c" href="javascript:;">
+						<div>健康订制</div>
+						<div class="back-r">&nbsp;</div>
+					</a>
+            	</router-link>
+            </div>
+            <div class="urlText mt-10 border-t-e6" id="SignOut" @click="SignOut">
             	<span class="box box-pack-c box-align-c tui">
             		退出当前账号
             	</span>
             </div>
-            <div class="user_loading" @click='login' v-show="show"></div>
         </div>
         <footerHTML :type='type'></footerHTML>
 	</div>
@@ -72,7 +85,7 @@
 			return {
 				type:"3",
 				parent:this.data,
-				show:true,
+				
 				user_id:Global.Cookie.get('id'),
 				src:"../../../static/images/head.png",
 				text:'洋窝儿（未登录）',
@@ -82,9 +95,7 @@
 			};
 		},
 		methods:{
-			login(){
-				this.$router.push("/login");
-			},
+		
 			user_loading(){
 				if(this.user_id){
 					this.show = false;
@@ -106,16 +117,12 @@
 			},
 			SignOut(){
 				let that = this;
-				layer.open({
-	                content: "退出成功",
-	                skin: 'msg',
-	                time:1,
-	                end:function(){
-	                	Global.Cookie.delete('id');
+				Global.layer.confirm('是否退出当前账号',function(){
+					Global.layer.open('退出成功',function(){
+						Global.Cookie.delete('id');
 	                	that.$router.go(0);
-	                }
-	              });
-				
+					});
+				})
 			}
 		},
 		mounted(){
@@ -126,12 +133,18 @@
 				
 
 		},
+		watch: {
+            '$route' (to, from) {
+                this.$router.go(0);
+                //this.init(this.getStatus(this.$route.path));
+            }
+       },
 		components: {
 			footerHTML
 		}
 	}
 </script>
-<style lang='less'>
+<style lang='less' scoped>
 	.headPortrait{
 		width: 100%;
 		height: 205px;

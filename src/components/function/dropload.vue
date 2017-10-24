@@ -2,7 +2,7 @@
 	<div class='sPcontent'>
 		<div class="lists" id="sPcontent_box">
 			
-			<section v-for='v in goodsArr'> 
+			<section v-for='v in goodsArr'  v-if="v.goods_main_url"> 
 				<router-link  :to="'/details/'+v.goods_id">
 					<dl class="commodity">
 	 		  	 		<dt>
@@ -10,7 +10,7 @@
 	 		  	 		</dt>
 	 		  	 		<dd>
 	 		  	 			<p class="apostrophe_n">{{v.goods_name}}</p>
-	 		  	 			<p class="price mt-10 pb-10">￥80.00</p>
+	 		  	 			<p class="price mt-10 pb-10">￥{{v.app_price}}</p>
 	 		  	 		</dd>
 	 		  	   	 </dl>
  		  	   	 </router-link>   
@@ -33,57 +33,60 @@
 			}
 		},
 		methods:{
-			droploadUrl(data,urlStr){
+			droploadUrl(data,urlStr,dataArr){
+				var that = this;
+				this.data = data;
+				this.urlStr = urlStr;
+				var goodsArr =  dataArr.brand_goods?dataArr.brand_goods:dataArr.categoty_goods;
+		    	goodsArr = goodsArr?goodsArr:data;
+				this.goodsArr=this.goodsArr.concat(goodsArr);
+				console.log(this.goodsArr)
+				Global.reset.LazyLoadImg("#sPcontent_box");
 				this.$nextTick(function(){
-					this.data = data;
-					this.ajaxFn (urlStr);
-					this.urlStr = urlStr;
+					setTimeout(function(){
+						that.droploadFn (urlStr);
+					});
 				})
 
 			},
 			ajaxFn (urlStr,k){
-
+               	
 				var that = this;
-			   	 that.$http.post(url.url+urlStr,that.data,{emulateJSON:true}).then(function(res){
-				   let data = res.body.data;
+			   	that.$http.post(url.url+urlStr,that.data,{emulateJSON:true}).then(function(res){
+				  	let data = res.body.data;
 			   	    if(that.Load){
 			   	    	that.$emit('LoadFn');
 			   	    };
 				    if(res.body.code == '10000'){
 				    	var goodsArr =  data.brand_goods?data.brand_goods:data.categoty_goods;
 				    	goodsArr = goodsArr?goodsArr:data;
-					that.goodsArr=that.goodsArr.concat(goodsArr);
-
- 					if(goodsArr.length != 0 && goodsArr.length == 20){
- 						Global.reset.LazyLoadImg("#sPcontent_box");
- 						that.data.page = that.data.page+1;
- 						that.dropload.resetload();
- 					}else if(goodsArr.length == 0){
- 						
- 						that.dropload.lock('down');
+						if(goodsArr.length != 0){
+							that.goodsArr=that.goodsArr.concat(goodsArr);
+							that.$nextTick(function(){
+								if(goodsArr.length == 20){
+									that.data.page = that.data.page+1;
+									that.dropload.resetload();
+								}else if(goodsArr.length <20 && k != 1){
+									that.dropload.lock('down');
+								    that.dropload.noData();
+						           	that.dropload.resetload();
+								}; 
+								if(goodsArr.length == 20 && k == 1){
+									that.dropload.unlock();
+									that.dropload.noData(false);
+							        that.dropload.resetload();
+								}else if(goodsArr.length < 20 && k == 1){
+									that.dropload.resetload();
+								}
+								Global.reset.LazyLoadImg("#sPcontent_box");
+							})
+							
+						}else{
+							that.dropload.lock('down');
 					    	that.dropload.noData();
 					    	that.dropload.resetload();
- 					}else if(goodsArr.length <20 && k != 1){
- 						
- 						Global.reset.LazyLoadImg("#sPcontent_box");
- 						that.dropload.lock('down');
-					    	that.dropload.noData();
-					    	that.dropload.resetload();
-					}else if(goodsArr.length <20 && k == 1){
-						Global.reset.LazyLoadImg("#sPcontent_box");
-						that.dropload.resetload();
-					}
-				    }else if(res.body.code == "-10015"){
-				    	that.dropload.lock('down');
-				    	that.dropload.noData();
-				    	that.dropload.resetload();
-				    }
- 				  //   if( k ==1){
-				   //  	that.dropload.unlock();
-	 			 	// that.dropload.noData(false);
-	 			 	// that.dropload.resetload();
-
- 				  //   }
+						}
+					}	
 			  	 },function(){
 
 			  	 })
@@ -107,13 +110,15 @@
 					loadUpFn : function(me){
 							$("#sPcontent_box").html('');
 							that.data.page = 0;
+							that.goodsArr=[];
 							that.ajaxFn(urlStr,1);
 					},
 					loadDownFn : function(me){
-							that.ajaxFn(urlStr);	
-					
+						setTimeout(function(){
+							that.ajaxFn(urlStr);
+						},200)
 					},
-					threshold : 50
+					threshold : 100
 				});
 
 			},
@@ -127,7 +132,7 @@
 		},
 		watch:{
 			urlStr:function(){
-			    this.droploadFn(this.urlStr)
+			    //this.droploadFn(this.urlStr)
 				
 			}
 		}
@@ -135,7 +140,7 @@
 	}
 
 </script>
-<style lang="less">
+<style lang="less" scoped>
 	.sPcontent section {
 	    width: 50%;
 	    float: left;
@@ -159,6 +164,9 @@
 	    &:nth-of-type(odd) .commodity{
 	    	margin-left:10px;
             margin-right:5px;
+	    }
+	    dd{
+	    	padding: 0 5px;
 	    }
 	  
 	}

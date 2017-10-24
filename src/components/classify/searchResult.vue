@@ -39,7 +39,7 @@
 		mounted(){
 			var that = this;
 			setTimeout(function(){
-	               that.$refs.dropload.droploadUrl(that.data,that.url);
+	               that.$refs.dropload.droploadUrl(that.data,that.url,[]);
 			},1000)
 	                       
 		},
@@ -77,6 +77,13 @@
 			}
 
 		},
+		watch: {
+            '$route' (to, from) {
+            	
+               this.$router.go(0);
+                //this.init(this.getStatus(this.$route.path));
+            }
+       	},
 		components:{
 			headerHtml,
 			droploadHtml,
@@ -84,7 +91,7 @@
 		}
 	}
 </script>
-<style lang="less">
+<style lang="less" scoped>
   .searchResultContent{
   	margin-top: 80px;
   }

@@ -4,7 +4,7 @@
         	<LoadAnimation></LoadAnimation>
         </div>
 		<div class="fiexBox">
-			<headerHtml :type="type" :text="text"></headerHtml>
+			<headerHtml :type="type" :text="text" v-on:hide="hide"></headerHtml>
 			<div class="nav">
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
@@ -50,20 +50,22 @@
 			}
 		},
 		created(){
-	                      
-			 this.$http.post(url.url+"category_class",this.data,{emulateJSON:true}).then(function(res){
-				   let data = res.body.data;
-				  
-				   this.brand = data.brand?data.brand:data.child_category;
-				   this.$nextTick(function(){
-				   	this.Load = false;
-				   	 this.mySwiper() ;
-				   	 this.$refs.dropload.droploadUrl(this.data,this.url);
+			var that = this;
+	        /*setTimeout(function(){
+	        	alert(1)
+	        	that.$destroy();
+	        },10000)*/
+		 	this.$http.post(url.url+"category_class",this.data,{emulateJSON:true}).then(function(res){
+			   let data = res.body.data;
+				   	this.brand = data.brand?data.brand:data.child_category;
+				   	this.$nextTick(function(){
+					   	this.Load = false;
+					   	this.mySwiper(this.brand) ;
+					   	this.$refs.dropload.droploadUrl(this.data,this.url,data);
+			   		})
+		  	 },function(){
 
-				   })
-			  	 },function(){
-
-			  	 })
+		  	 })
 		  	
 
 		},
@@ -108,43 +110,59 @@
  			 	this.$refs.dropload.dropload.noData(false);
  			 	this.$refs.dropload.dropload.resetload();
 			},
-			mySwiper(){
-
+			mySwiper(brand){
 				var that = this;
-				var mySwiper = new Swiper('.swiper-container',{
-					slideToClickedSlide:true,
-					centeredSlides : true,
-					slidesPerView :'auto'
-				});
-				$(".swiper-wrapper").css('transform','translate3d(0,0,0)');
-				var w = 0;
-				$('.swiper-slide').each(function(index, el) {
-					w += $(this).width()*1;
-				});
-				$(".nav").on('touchend',function(e){
-					var  windowWidth = $(window).width()*1;
-					var  lz = w - (windowWidth-10)+10;
-					var l = $(".swiper-wrapper").css('transform');
-					l =  l.replace(/3d/g,'end');
-					l =  l.replace(/px/g,'');
-					eval(l)
-					if(w <= windowWidth){
-						$(".swiper-wrapper").css('transform','translate3d(0,0,0)');
-					};
-					function translateend(x,y,z){
-						if(x>=0){
+				if(brand.length <= 5){
+					var mySwiper = new Swiper('.swiper-container',{
+						slidesPerView :brand.length
+					});
+				}else{
+					var mySwiper = new Swiper('.swiper-container',{
+						slideToClickedSlide:true,
+						centeredSlides : true,
+						slidesPerView :'auto'
+					});
+					$(".swiper-wrapper").css('transform','translate3d(0,0,0)');
+					var w = 0;
+					$('.swiper-slide').each(function(index, el) {
+						w += $(this).width()*1;
+					});
+					$(".nav").on('touchend',function(e){
+						var  windowWidth = $(window).width()*1;
+						var  lz = w - (windowWidth-10)+10;
+						var l = $(".swiper-wrapper").css('transform');
+						l =  l.replace(/3d/g,'end');
+						l =  l.replace(/px/g,'');
+						eval(l)
+						if(w <= windowWidth){
 							$(".swiper-wrapper").css('transform','translate3d(0,0,0)');
-						}else{
-							if(w*1+x*1 <= windowWidth-10){
-								$(".swiper-wrapper").css('transform','translate3d('+(-lz)+'px,0,0)')
-							} 
+						};
+						function translateend(x,y,z){
+							if(x>=0){
+								$(".swiper-wrapper").css('transform','translate3d(0,0,0)');
+							}else{
+								if(w*1+x*1 <= windowWidth-10){
+									$(".swiper-wrapper").css('transform','translate3d('+(-lz)+'px,0,0)')
+								} 
+							}
 						}
-					}
-				});
-				
-			
-			}
+					});
+				}
+
+			},
+			hide(){
+				this.$refs.dropload.dropload.lock('down');
+ 			 	this.$refs.dropload.dropload.noData();
+ 			 	this.$refs.dropload.dropload.resetload();
+ 			 	this.$destroy();
+          	}
 		},
+		watch: {
+            '$route' (to, from) {
+                //this.$router.go(0);
+                //this.init(this.getStatus(this.$route.path));
+            }
+       },
 		components:{
 			headerHtml,
 			droploadHtml,
@@ -152,8 +170,10 @@
 		}
 	}
 </script>	
-<style lang="less">
+<style>
 	@import '../../assets/less/dropload.less';
+</style>
+<style lang='less'>
 	.header{
 		position: inherit;
 		width: 100%;
@@ -168,10 +188,11 @@
 		width: auto;
 		height: 100%;
 		line-height: 35px;
-		padding-right:20px;
+        text-align: center;
+        padding-right: 25px;
 	}
-	.nav .swiper-slide:first-child{
-		padding-left: 20px;
+	.nav .swiper-slide:first-child {
+   	 	padding-left: 25px;
 	}
 	.nav .swiper-slide:last-child{
 		padding-right:5px;

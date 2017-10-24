@@ -34,6 +34,66 @@
 
 	              		</div>	
 	              	</section>
+	              	<section class="mb-10 back-f" v-for='v in data'>
+	              		<div>
+	              			 <router-link :to="'ClassifyDetails?category_id='+v.category_id+'&category_name='+v.category_name">
+	              				<img :data-src="v.category_image" class="img lazy" src='../../../static/images/default2.png'>
+	              			</router-link>   
+	              		</div>
+	              		<nav class="classNav">
+	              			 <router-link v-for='x in v.categoty_keyword' :to="'searchResult?keyword='+x.category_keyword">
+	              			 	 {{x.category_keyword}}
+	              			</router-link>   
+	              			<!-- <a v-for='x in v.categoty_keyword' href="#" >{{x.category_keyword}}</a> -->
+	              		</nav>
+	              		<div class="swiper-box o-h">
+	              			<section v-for='x in v.child_category'>
+	              				 <router-link :to="'ClassifyDetails?category_id='+x.category_id+'&category_name='+x.category_name">
+		              				<dl>
+		              					<dt>
+		              						<img :data-src="x.category_image" class="img lazy" src='../../../static/images/default_load.png'>
+		              					</dt>
+		              					<dd>
+		              						<p class='SpecialEllipsis text-c'>
+		              							{{x.category_name}}
+		              						</p>
+		              					</dd>
+		              				</dl>
+	              				</router-link>   
+	              			</section>
+
+	              		</div>	
+	              	</section>
+	              	<section class="mb-10 back-f" v-for='v in data'>
+	              		<div>
+	              			 <router-link :to="'ClassifyDetails?category_id='+v.category_id+'&category_name='+v.category_name">
+	              				<img :data-src="v.category_image" class="img lazy" src='../../../static/images/default2.png'>
+	              			</router-link>   
+	              		</div>
+	              		<nav class="classNav">
+	              			 <router-link v-for='x in v.categoty_keyword' :to="'searchResult?keyword='+x.category_keyword">
+	              			 	 {{x.category_keyword}}
+	              			</router-link>   
+	              			<!-- <a v-for='x in v.categoty_keyword' href="#" >{{x.category_keyword}}</a> -->
+	              		</nav>
+	              		<div class="swiper-box o-h">
+	              			<section v-for='x in v.child_category'>
+	              				 <router-link :to="'ClassifyDetails?category_id='+x.category_id+'&category_name='+x.category_name">
+		              				<dl>
+		              					<dt>
+		              						<img :data-src="x.category_image" class="img lazy" src='../../../static/images/default_load.png'>
+		              					</dt>
+		              					<dd>
+		              						<p class='SpecialEllipsis text-c'>
+		              							{{x.category_name}}
+		              						</p>
+		              					</dd>
+		              				</dl>
+	              				</router-link>   
+	              			</section>
+
+	              		</div>	
+	              	</section>
 	              </div>
 	              <footerHTML :type='2'></footerHTML>
 	</div>
@@ -55,21 +115,17 @@
 		},
 		mounted(){
 			let that = this;
-			let bool = true;
-		
-			this.$emit('loginData',{name:'classify'},function(data){
-                    if(!data){return false}
-                    that.Load = false;
-                	that.data = data;
-                	that.$nextTick(function(){
-                		setTimeout(function(){
-	                         Global.reset.LazyLoadImg("#content");
-	                    },100)
-                	})
-                	
-                    bool = false;
-            });
-            if(!bool){return false}
+		    let data = that.$store.state.classify;
+		    if(data){
+		    	that.Load = false;
+            	that.data = data;
+            	that.$nextTick(function(){
+            		setTimeout(function(){
+                         Global.reset.LazyLoadImg("#content");
+                    },600)
+            	})
+		    	return false;
+		    }
 			this.$nextTick(function(){
 				$.ajax({
 					url:url.url+"category",
@@ -79,12 +135,11 @@
 						if(e.code == '10000'){
 							that.Load = false;
 							that.data = e.data;
-							that.$emit('loginData',{data:e.data,name:'classify'},function(e){
-                       		});
+							that.$store.state.classify=e.data;
 							Global.reset.LazyLoadImg("#content");
-							/*setTimeout(function(){
+							setTimeout(function(){
 								Global.reset.LazyLoadImg("#content");
-							},900)*/
+							},600)
 						}
 					}
 				})

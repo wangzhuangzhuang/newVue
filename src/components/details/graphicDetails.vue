@@ -1,13 +1,12 @@
 <template>
 
      <transition name="fade">
-
-	     <div class='graphic' v-show='bool'>
-	     	 
-	             <headerHtml :type="type" v-on:hide="hide"></headerHtml> 
- 		<div class="graphicImg" v-html='dataImg'>
- 		</div>	
-	     </div>
+        
+  	     <div class='graphic' v-show='bool'>
+  	     	 <headerHtml :type="type" v-on:hide="hide"></headerHtml> 
+     		   <div class="graphicImg" v-html='dataImg'>
+     		   </div>	
+  	     </div>
 
       </transition>	     
 
@@ -46,7 +45,7 @@
 	    );
           },
           hide(){
-                    	   this.bool = false;
+              this.bool = false;
           }
   
     },
@@ -68,9 +67,6 @@
       	bottom: 0;
       	left: 0;
       	right: 0;
-      }
-      .graphicImg{
-      	margin-top: 45px;
       }
     .graphicImg img{
     	width: 100%;

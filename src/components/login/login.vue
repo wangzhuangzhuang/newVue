@@ -4,7 +4,7 @@
           <div class="logoImg">
                  <div></div>
            </div>
-           <form class="MyForm box mt-30 box-pack-c">
+           <form class="MyForm box mt-30 box-pack-c vvv">
                <ul>
                   <li class="box box-pack-c box-align-c userNameLi">
                     <input type="text" class="Mytext userName" placeholder="请输入手机号" v-model='userName'>
@@ -63,7 +63,7 @@
                           function (res) {
                                   let data = res.body.data;
                                   if( res.body.code == '10000'){
-                                      that.$emit('loginData',data);
+                                      that.$emit('loginData',data,function(){});
                                       Global.Cookie.set('id',data.user_id,1);
                                       that.$router.go(-1);  
                                   };

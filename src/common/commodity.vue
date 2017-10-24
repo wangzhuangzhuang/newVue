@@ -22,10 +22,7 @@
 
 	};
 </script>
-<style type="text/css">
-    .commodity{
-        margin-left:10px;
-    }
+<style type="text/css" scoped>
    
     .commodity img{
         width: 100%;

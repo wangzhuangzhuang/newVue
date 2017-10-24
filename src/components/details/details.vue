@@ -196,6 +196,8 @@
             　  this.$router.go(0);  
             },
             graphicFn(){
+
+                document.documentElement.scrollTop = document.body.scrollTop =0;
                 this.$refs.graphic.show(this.$route.params.id);
             },
             getStatus (urlStr) {
@@ -209,6 +211,7 @@
                 this.swiper.destroy(true);
                 this.Load = true;
                 this.init(this.$route.params.id);
+                 this.$refs.graphic.hide();
                 //this.init(this.getStatus(this.$route.path));
             }
         },
@@ -227,6 +230,12 @@
     };
 </script>
 <style  lang='less' scoped>
+    .headerBox{
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 999999999
+    }
     .swiperImg{
         width: 100%;
         overflow: hidden;

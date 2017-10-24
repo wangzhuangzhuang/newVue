@@ -1,112 +1,86 @@
 <template>
-	<div id="loading">
-		<div id="loading-center">
-			<div id="loading-center-absolute">
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-				<div class="object"></div>
-			</div>
-		</div>
-	</div>
+	 <div id="loading">
+			<div class="load-container load3"><div class="loader"></div></div>
+     </div>
 </template>
-<style type="text/css">
+<style lang='less' scoped>
 	
-	#loading{
-		background-color: #ffffff;
-		height: 100%;
-		width: 100%;
-		position: fixed;
-		z-index: 99999999999999;
-		margin-top: 0px;
-		top: 0px;
-	}
-	#loading-center{
-		width: 100%;
-		height: 100%;
-		position: relative;
-		}
-	#loading-center-absolute {
-		position: absolute;
-		left: 50%;
-		top: 50%;
-		height: 50px;
-		width: 150px;
-		margin-top: -25px;
-		margin-left: -75px;
-
-	}
-	.object{
-		width: 8px;
-		height: 50px;
-		margin-right:5px;
-		background-color: rgba(0, 0, 0, .5);
-		-webkit-animation: animate 1s infinite;
-		animation: animate 1s infinite;
-		float: left;
-		}
-
-	.object:last-child {
-		margin-right: 0px;
-		}
-
-	.object:nth-child(10){
-		-webkit-animation-delay: 0.9s;
-	    animation-delay: 0.9s;	
-		}
-	.object:nth-child(9){
-		-webkit-animation-delay: 0.8s;
-	    animation-delay: 0.8s;	
-		}	
-	.object:nth-child(8){
-		-webkit-animation-delay: 0.7s;
-	    animation-delay: 0.7s;	
-		}
-	.object:nth-child(7){
-		-webkit-animation-delay: 0.6s;
-	    animation-delay: 0.6s;	
-		}
-	.object:nth-child(6){
-		-webkit-animation-delay: 0.5s;
-	    animation-delay: 0.5s;	
-		}
-	.object:nth-child(5){
-		-webkit-animation-delay: 0.4s;
-	    animation-delay: 0.4s;
-		}
-	.object:nth-child(4){
-		-webkit-animation-delay: 0.3s;
-	    animation-delay: 0.3s;		
-		}
-	.object:nth-child(3){
-		-webkit-animation-delay: 0.2s;
-	    animation-delay: 0.2s;	
-		}
-	.object:nth-child(2){
-		-webkit-animation-delay: 0.1s;
-	    animation-delay: 0.1s;
-		}	
-	@-webkit-keyframes animate {
-	 
-	  50% {
-		-ms-transform: scaleY(0); 
-	   	-webkit-transform: scaleY(0);
-	    transform: scaleY(0);
-		
-		  }
-	}
-	@keyframes animate {
-	  50% {
-		-ms-transform: scaleY(0); 
-	   	-webkit-transform: scaleY(0);
-	    transform: scaleY(0);
-		  }
-	}
+	#loading {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 999999999;
+    margin-top: 0px;
+    top: 0px;
+    background: #fff;
+    .load3{
+        width: 100%;
+        height: 100%;
+    }
+    .load3 .loader {
+        font-size: 10px;
+        position: relative;
+        width: 40px;
+        height:40px;
+        border-radius: 50%;
+        background: #666;
+        background: -moz-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: -webkit-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: -o-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: -ms-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: linear-gradient(to right, #666 10%, rgba(255, 255, 255, 0) 42%);
+        position: relative;
+        -webkit-animation: load3 1.4s infinite linear;
+        animation: load3 1.4s infinite linear;
+        left: 50%;
+        top: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+       
+    }
+    .load3 .loader:before {
+        width: 50%;
+        height: 50%;
+        background: #666;
+        border-radius: 100% 0 0 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+    }
+    .load3 .loader:after {
+        background: #fff;
+        width: 75%;
+        height: 75%;
+        border-radius: 50%;
+        content: '';
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+    @-webkit-keyframes load3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes load3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+}
 
 </style>
