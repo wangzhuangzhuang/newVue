@@ -17,7 +17,7 @@
                   <li class="forgetBtn box box-pack-c box-align-c"><a href="forgetPass.html">忘记密码</a></li>
                </ul>
          </form>
-         <transition name="bounceUp" tag="ul" class="list-group">
+         <transition name="bounceUp">
               <div v-show="bool" style="color:#fff" class="Prompt text-c">{{PromptText}}</div>
          </transition>
 
@@ -51,7 +51,7 @@
                 };
                if(userName.length == 0 || Mypassword == 0){
                   this.bool = true;
-                  this.PromptText = '请输入账号密码不能为空';
+                  this.PromptText = '请输入账号密码';
                   let that = this;
                   setTimeout(function(){
                      that.bool = false;
@@ -64,9 +64,18 @@
                                   let data = res.body.data;
                                   if( res.body.code == '10000'){
                                       that.$emit('loginData',data,function(){});
-                                      Global.Cookie.set('id',data.user_id,1);
-                                      that.$router.go(-1);  
-                                  };
+                                      Global.Cookie.set('id',data.user_id);
+                                       var redirect = this.$route.query.redirect;
+                                      //that.$router.go(-1);  
+                                      that.$router.replace({path:redirect});
+                                  }else{
+                                  	
+                                  	this.bool = true;
+                  					this.PromptText = res.body.msg;
+                  					setTimeout(function(){
+				                     	that.bool = false;
+				                    },1500)
+                                  }
                                 
                           },function (res) {
                           // 处理失败的结果

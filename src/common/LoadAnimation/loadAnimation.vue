@@ -1,0 +1,86 @@
+<template>
+	 <div id="loading">
+			<div class="load-container load3"><div class="loader"></div></div>
+     </div>
+</template>
+<style lang='less' scoped>
+	
+	#loading {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 999999999;
+    margin-top: 0px;
+    top: 0px;
+    background: #fff;
+    .load3{
+        width: 100%;
+        height: 100%;
+    }
+    .load3 .loader {
+        font-size: 10px;
+        position: relative;
+        width: 40px;
+        height:40px;
+        border-radius: 50%;
+        background: #666;
+        background: -moz-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: -webkit-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: -o-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: -ms-linear-gradient(left, #666 10%, rgba(255, 255, 255, 0) 42%);
+        background: linear-gradient(to right, #666 10%, rgba(255, 255, 255, 0) 42%);
+        position: relative;
+        -webkit-animation: load3 1.4s infinite linear;
+        animation: load3 1.4s infinite linear;
+        left: 50%;
+        top: 50%;
+        margin-left: -20px;
+        margin-top: -20px;
+       
+    }
+    .load3 .loader:before {
+        width: 50%;
+        height: 50%;
+        background: #666;
+        border-radius: 100% 0 0 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+    }
+    .load3 .loader:after {
+        background: #fff;
+        width: 75%;
+        height: 75%;
+        border-radius: 50%;
+        content: '';
+        margin: auto;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+    }
+    @-webkit-keyframes load3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes load3 {
+        0% {
+            -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+}
+
+</style>

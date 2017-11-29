@@ -1,9 +1,8 @@
 <template>
 	<div id="content">
-		<div v-show="Load">
-			<LoadAnimation></LoadAnimation>
-		</div>
+		<Loading  v-show="Load"></Loading>
 		<swiperHTML :bannner=bannner></swiperHTML>
+
 		<div class="swiperText">
 			<div class="swiper-container2">
 				<div class="swiper-wrapper">
@@ -21,7 +20,7 @@
 			<h4 class='text-c'>新品上线     时时购</h4>
 			<div class="box newBox">
 				<div class="width_33" v-for='v in sy_jrsx'>
-					<router-link :to="'/details/'+v.goods_id" @click.native="flushCom">
+					<router-link :to="'/details/'+v.goods_id" >
 						<commodity :xsqg='v'></commodity>
 					</router-link>
 				</div>
@@ -109,11 +108,11 @@
 	import swiper from '../../../static/js/swiper.min.js';
 	import jquery from '../../../static/js/jquery.js';
 	import swiperHTML from '../function/swiper.vue';
-	import LoadAnimation from '../function/LoadAnimation.vue';
 	import footerHTML from '../footer/footer.vue';
 	import commodity from '../../common/commodity.vue';
 	import url from '../../Api/url.js';
 	import Global from '../function/Global.vue';
+	import {mapGetters,mapActions} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -209,6 +208,7 @@
 
 		mounted() {
 			
+			this.count(12);
 			//this.$store.state.show = ""
 			//     var mySwiper = new Swiper('.swiper-container2', {
 
@@ -220,17 +220,19 @@
 			//     })
 
 		},
+		methods:mapActions([
+			'count'
+		]),
 		updated: function() {
 
 		},
-		methods: {
+		/*methods: {
 			flushCom() {
 				this.$router.go(0);
 			}
-		},
+		},*/
 		components: {
 			swiperHTML,
-			LoadAnimation,
 			footerHTML,
 			commodity
 		}

@@ -9,16 +9,14 @@ import classify from './components/classify/classify.vue';
 import ClassifyDetails from './components/classify/ClassifyDetails.vue';
 import searchResult from './components/classify/searchResult.vue';
 import myOrder   from './components/my/myOrder.vue';
+import identity  from './components/my/identity.vue';
 
 const routers = [{
     path: '/',
-    name: 'index',
     component: App,
     children: [{
-        path: '/',
-        name: "show",
-        redirect: "/show",
-        component: show
+        path: '',
+        redirect: "/show"
     },{
         path: '/show',
         name: "show",
@@ -64,8 +62,15 @@ const routers = [{
         name: "myOrder",
         component: myOrder,
         meta: { login: true }　
+    },{　　　　
+        path: '/identity',
+        name: "identity",
+        component: identity,
+        meta: { login: true }　
     }]
 }]
 
 
 export default routers
+
+

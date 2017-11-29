@@ -8,14 +8,14 @@ import routers from './routers'; /////路由
 require('vue2-animate/dist/vue2-animate.css') /////动画
 import store from './store'
 import Global from './components/function/Global.vue';
-
+import loadAnimation from './common/LoadAnimation';
 require('../static/css/layer.css')
 require('../static/js/layer.js')
 // 安装 "VueRouter"这个插件
 /* eslint-disable no-new */
 Vue.use(VueRouter)
 Vue.use(VueResource)
-
+Vue.use(loadAnimation)
 const router = new VueRouter({
 	mode: 'hash',
 	routes: routers,
@@ -24,7 +24,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-
 	if(to.matched.some(record => record.meta.login)) { //这里meta字段的名称要与上面route里面保持一致
 		var id = Global.Cookie.get('id');
 		if(!id) { // 自己的判断条件

@@ -38,7 +38,13 @@
 			<h4 class='searchResultHeader' style="font-size: 12px;font-weight: 400;padding-left: 0;">{{text}}</h4>
 		</header>
 		<header v-if='type=="myOrder"' class="header ClassifyDetails active">
-			<div class="left register box box-pack-c box-align-c" @click='back2'>
+			<div class="left register box box-pack-c box-align-c" @click='back'>
+				<img src="../../../static/images/back-l.png" class="img">
+			</div>
+			<h4 style="margin:0;line-height:45px;" class="text-c">{{text}}</h4>
+		</header>
+		<header v-if='type==""' class="header ClassifyDetails active">
+			<div class="left register box box-pack-c box-align-c" @click='back'>
 				<img src="../../../static/images/back-l.png" class="img">
 			</div>
 			<h4 style="margin:0;line-height:45px;" class="text-c">{{text}}</h4>
@@ -69,7 +75,6 @@
 				this.number =(this.scroll / 300);
 			},
 			back() {
-		
 				this.$destroy();
 				this.$router.go(-1);
 			},

@@ -89,7 +89,7 @@
 					page:0
 				},
 				url:'all_order',
-				Load:false,
+				Load:true,
 				text:"我的订单",
 				goods:[]
 			}
@@ -135,6 +135,7 @@
 				var that = this;
 				this.$http.post(url.url+"all_order",this.data,{emulateJSON:true}).then(function(res){
 				   	let data = res.body.data?res.body.data:[];
+				   	that.Load=false;
 					if(data.length != 0){
 						    that.goods=that.goods.concat(data);
 							that.$nextTick(function(){

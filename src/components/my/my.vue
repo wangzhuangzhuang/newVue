@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="headPortrait box box-pack-c box-align-c box-orient-vs" style="-webkit-box-orient: vertical;">
+		<div class="headPortrait box box-pack-c box-align-c box-orient-vs" style="-webkit-box-orient: vertical;" :style="{backgroundImage: 'url(' + imgC + ')'}">
          		<div class="resetheadImg">
-         			<img :src="src" id="user_image">
+         			<img src="../../../static/images/head.png" id="user_image">
          		</div>
          		<div class="resetuserName" id="user_nickname">{{text}}</div>
 				<div class="franchisee text-c" style="display: block;" v-if="join_type == 1">{{store_name}}</div>
@@ -27,7 +27,7 @@
 	            </router-link>
             </div>
             <div class="urlText mt-10 border-t-e6">
-            	<router-link to="/show">
+            	<router-link to="/identity">
 	            	<a class="box box-pack-j box-align-c" href="javascript:;">
 	            		<div>我的身份证</div>
 	            		<div class="back-r">&nbsp;</div>
@@ -79,18 +79,18 @@
 	import footerHTML from '../footer/footer.vue';
 	import Global from '../function/Global.vue';
 	import url from '../../Api/url.js';
+	import imgC from '../../../static/images/headBack.jpg';
 	export default {
 		props:['data'],
 		data() {
 			return {
 				type:"3",
 				parent:this.data,
-				
 				user_id:Global.Cookie.get('id'),
-				src:"../../../static/images/head.png",
 				text:'洋窝儿（未登录）',
 				join_type:'',
-				store_name:''
+				store_name:'',
+				imgC: imgC
 
 			};
 		},
@@ -119,8 +119,7 @@
 				let that = this;
 				Global.layer.confirm('是否退出当前账号',function(){
 					Global.layer.open('退出成功',function(){
-						Global.Cookie.delete('id');
-	                	that.$router.go(0);
+						Global.Cookie.delete('id'); 	                	that.$router.go(0);
 					});
 				})
 			}
@@ -148,7 +147,7 @@
 	.headPortrait{
 		width: 100%;
 		height: 205px;
-		background: url('../../../static/images/headBack.jpg') no-repeat;
+		/*//background: url('/static/images/headBack.jpg') no-repeat;*/
 		background-position: center;
     	background-size: 100% auto;
     	position: relative;
