@@ -6,7 +6,7 @@ import VueRouter from 'vue-router';
 import VueResource from 'vue-resource';
 import routers from './routers'; /////路由
 require('vue2-animate/dist/vue2-animate.css') /////动画
-import store from './store'
+//import store from './store'   /////vuex;
 import Global from './components/function/Global.vue';
 import loadAnimation from './common/LoadAnimation';
 require('../static/css/layer.css')
@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
 })
 let app = new Vue({
 	router,
-	store,
+//	store,
 }).$mount('#app');
 
 export default app;

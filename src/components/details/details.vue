@@ -207,11 +207,15 @@
         },
         watch: {
             '$route' (to, from) {
-                $(".swiper-wrapper").css("transform","translate3d(0px,0px,0px)");
-                this.swiper.destroy(true);
-                this.Load = true;
-                this.init(this.$route.params.id);
-                 this.$refs.graphic.hide();
+            	  	
+            	 		if(!this.$route.params.id){return false;}
+            	  	$(".swiper-wrapper").css("transform","translate3d(0px,0px,0px)");
+	                this.swiper.destroy(true);
+	                this.Load = true;
+	                this.init(this.$route.params.id);
+	                this.$refs.graphic.hide();
+            	 
+                
                 //this.init(this.getStatus(this.$route.path));
             }
         },

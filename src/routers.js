@@ -61,7 +61,7 @@ const routers = [{
         path: '/myOrder',
         name: "myOrder",
         component: myOrder,
-        meta: { login: true }　
+        meta: { login: true }
     },{　　　　
         path: '/identity',
         name: "identity",

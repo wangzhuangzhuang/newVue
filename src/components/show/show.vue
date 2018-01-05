@@ -1,8 +1,9 @@
 <template>
 	<div id="content">
-		<Loading  v-show="Load"></Loading>
+		<div v-show="Load">
+			<LoadAnimation></LoadAnimation>
+		</div>
 		<swiperHTML :bannner=bannner></swiperHTML>
-
 		<div class="swiperText">
 			<div class="swiper-container2">
 				<div class="swiper-wrapper">
@@ -15,61 +16,55 @@
 		<div class="downloda">
 			<a href="#">下载洋窝儿APP，更多跨境商品等你来</a>
 		</div>
-		<div class="borderBox borderPadding back-f">
-			<h3 class="text-c one_Title"><span>超值新品<img src="../../../static/imgs/NEW.png"></span></h3>
-			<h4 class='text-c'>新品上线     时时购</h4>
-			<div class="box newBox">
-				<div class="width_33" v-for='v in sy_jrsx'>
-					<router-link :to="'/details/'+v.goods_id" >
-						<commodity :xsqg='v'></commodity>
-					</router-link>
-				</div>
+		<div class="borderBox back-f back-f">
+			<div class="headline box box-pack-c box-align-c box-orient-v">
+				<h3 class="text-c one_Title">爆款热卖<span><img src="../../../static/imgs/NEW.png"></span></h3>
+				<h4 class='text-c'>高端好货  值得买</h4>
 			</div>
-		</div>
-		<div class="borderBox borderPadding back-f">
-			<h3 class="text-c one_Title"><span>爆款热卖<img src="../../../static/imgs/NEW.png"></span></h3>
-			<h4 class='text-c'>高端好货     值得买</h4>
-			<div class="box newBox">
-				<div class='width_33' v-for='v in sy_dsbm'>
+
+			<div class="newBox">
+				<div v-for='v in sy_jrsx'>
 					<router-link :to="'/details/'+v.goods_id" @click.native="flushCom">
 						<commodity :xsqg='v'></commodity>
 					</router-link>
 				</div>
 			</div>
 		</div>
-		<div class="borderBox sy_zqlb back-f">
-			<div class="swiper-container3">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide" v-for='v in sy_zqlb'><img :src='v.special_img' class="img"></div>
+		<div class="borderBox borderPadding back-f">
+			<div class="headline box box-pack-c box-align-c box-orient-v">
+				<h3 class="text-c one_Title">超值新品<span><img src="../../../static/imgs/NEW.png"></span></h3>
+				<h4 class='text-c'>新品上线   时时购</h4>
+			</div>
+			<div class="newBox">
+				<div class='box-flex' v-for='v in sy_dsbm'>
+					<router-link :to="'/details/'+v.goods_id" @click.native="flushCom">
+						<commodity :xsqg='v'></commodity>
+					</router-link>
 				</div>
 			</div>
+			<div>
+				
+			</div>
 		</div>
-
-		<div class="show_content back-f">
-			<div class="show_content_list borderBox" v-for='v in sy_syfl'>
+		<!--<div class="borderBox sy_zqlb back-f">
+               <div class="swiper-container3">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" v-for='v in sy_zqlb'><img :src='v.special_img' class="img"></div>
+                     </div>
+                </div>
+            </div>-->
+		<div class="show_content ">
+			<div class="show_content_list borderBox mt-10 back-f" v-for='v in sy_syfl'>
 				<div class='img-box'>
 					<router-link :to="'ClassifyDetails?category_id='+v.category_id+'&category_name='+v.category_name">
 						<img :src='v.category_image' class="img">
 					</router-link>
 				</div>
-				<div class="textNav">
-					<div class="swiper-container4">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide text-c" v-for='y in v.category_keyword'>
-								<a href="#" class='border-a'>{{y.category_keyword}}</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class='pb-10 pl-10 pr-10'>
-					<div class="swiper-container3">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide pr-10" v-for="y in v.category_names">
-								<router-link :to="'/details/'+y.goods_id" @click.native="flushCom">
-									<commodity :xsqg='y' :back='"1"'></commodity>
-								</router-link>
-							</div>
-						</div>
+				<div class='classify'>
+					<div v-for="y in v.category_names">
+						<router-link :to="'/details/'+y.goods_id" @click.native="flushCom">
+							<commodity :xsqg='y' :back='"1"'></commodity>
+						</router-link>
 					</div>
 				</div>
 			</div>
@@ -77,20 +72,20 @@
 				<div class='img-box'>
 					<img :src='v.home_brand_image' class="img">
 				</div>
-				<div class='pb-10 pl-10 pr-10'>
+				<div>
 					<div class="swiper-container3">
 						<div class="swiper-wrapper">
-							<div class="swiper-slide pr-10" v-for="y in v.brand_goods">
+							<div class="swiper-slide" v-for="y in v.brand_goods">
 								<router-link :to="'/details/'+y.goods_id" @click.native="flushCom">
 									<dl>
 										<dt>
-                                            <img :src="y.goods_main_url" class='img'>
-                                        </dt>
+                                                                    <img :src="y.goods_main_url" class='img'>
+                                                                </dt>
 										<dd>
 											<p>{{y.goods_name}}</p>
 											<p>
-												<span>￥{{y.app_price}}</span>
-												<span style="color:red;font-size:10px">￥{{y.market_price}}</span>
+												<span>��{{y.app_price}}</span>
+												<span style="color:red;font-size:10px">��{{y.market_price}}</span>
 											</p>
 										</dd>
 									</dl>
@@ -108,11 +103,11 @@
 	import swiper from '../../../static/js/swiper.min.js';
 	import jquery from '../../../static/js/jquery.js';
 	import swiperHTML from '../function/swiper.vue';
+	import LoadAnimation from '../function/LoadAnimation.vue';
 	import footerHTML from '../footer/footer.vue';
 	import commodity from '../../common/commodity.vue';
 	import url from '../../Api/url.js';
 	import Global from '../function/Global.vue';
-	import {mapGetters,mapActions} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -126,45 +121,57 @@
 				sy_zqlb: '',
 				sy_syfl: '',
 				Load: true,
+
 				sy_ppmk: '',
 				type: "1"
 			};
 		},
 		created() {
 			let that = this;
-			let data = that.$store.state.show;
-			if(data){
-				that.Load = false;
-				that.bannner = data.bannner;
-				that.sy_notice = data.sy_notice;
-				that.sy_jrsx = data.sy_jrsx;
-				that.sy_dsbm = data.sy_dsbm;
-				that.sy_zqlb = data.sy_zqlb;
-				that.sy_syfl = data.sy_syfl;
-				that.$nextTick(function() {
-					Global.reset.LazyLoadImg("#content");
-					new Swiper('.swiper-container', {
-						autoplay: 5000,
-						loop: true
-					});
-					new Swiper('.swiper-container2', {
-						autoplay: 3000,
-						loop: true,
-						direction: 'vertical'
-					});
-					new Swiper('.swiper-container3', {
-						slidesPerView: 2.5
-
-					});
-					new Swiper('.swiper-container4', {
-						slidesPerView: 4.5
-					});
-					setTimeout(function() {
-						Global.reset.LazyLoadImg("#content");
-					}, 600)
-				});
-				return false;
-			}
+//			let bool = true;
+//			this.$emit('loginData', {
+//				name: 'show'
+//			}, function(data) {
+//				if(!data) {
+//					return false
+//				}
+//				that.Load = false;
+//				that.bannner = data.bannner;
+//				that.sy_notice = data.sy_notice;
+//				that.sy_jrsx = data.sy_jrsx;
+//				that.sy_dsbm = data.sy_dsbm;
+//				that.sy_zqlb = data.sy_zqlb;
+//				that.sy_syfl = data.sy_syfl;
+//				that.sy_ppmk = data.sy_ppmk;
+//				that.$nextTick(function() {
+//					new Swiper('.swiper-container', {
+//						autoplay: 5000,
+//						loop: true
+//					});
+//					new Swiper('.swiper-container2', {
+//						autoplay: 3000,
+//						loop: true,
+//						direction: 'vertical'
+//					});
+//					new Swiper('.swiper-container3', {
+//						slidesPerView: 2.5
+//
+//					});
+//					new Swiper('.swiper-container4', {
+//						slidesPerView: 4.5
+//
+//					});
+//					setTimeout(function() {
+//						Global.reset.LazyLoadImg("#content");
+//					}, 100)
+//
+//				})
+//				bool = false;
+//			});
+//
+//			if(!bool) {
+//				return false
+//			}
 			$.ajax({
 				url: url.url + "sy_back",
 				type: "post",
@@ -178,9 +185,13 @@
 					that.sy_dsbm = data.sy_dsbm;
 					that.sy_zqlb = data.sy_zqlb;
 					that.sy_syfl = data.sy_syfl;
-					that.$store.state.show=data;
+					that.sy_ppmk = data.sy_ppmk;
+					that.$emit('loginData', {
+						data: data,
+						name: 'show'
+					}, function(e) {});
 					that.$nextTick(function() {
-						Global.reset.LazyLoadImg("#content");
+						Global.reset.LazyLoadImg("#content")
 						new Swiper('.swiper-container', {
 							autoplay: 5000,
 							loop: true
@@ -196,10 +207,8 @@
 						});
 						new Swiper('.swiper-container4', {
 							slidesPerView: 4.5
+
 						});
-						setTimeout(function() {
-							Global.reset.LazyLoadImg("#content");
-						}, 1100)
 					})
 				}
 			})
@@ -207,9 +216,7 @@
 		},
 
 		mounted() {
-			
-			this.count(12);
-			//this.$store.state.show = ""
+
 			//     var mySwiper = new Swiper('.swiper-container2', {
 
 			// autoplay: 5000,//��ѡѡ��Զ�����
@@ -220,28 +227,23 @@
 			//     })
 
 		},
-		methods:mapActions([
-			'count'
-		]),
 		updated: function() {
 
 		},
-		/*methods: {
+		methods: {
 			flushCom() {
-				this.$router.go(0);
+//				this.$router.go(0);
 			}
-		},*/
+		},
 		components: {
 			swiperHTML,
+			LoadAnimation,
 			footerHTML,
 			commodity
 		}
 	};
 </script>
 <style lang='less' scoped>
-	.swiper-slide:last-child{
-		padding-right: 0;
-	}
 	.swiperText {
 		height: 40px;
 		width: 100%;
@@ -250,26 +252,22 @@
 		padding-left: 50px;
 		background: url('../../../static/imgs/Radio.png') no-repeat 13px center #fff;
 		background-size: 25px auto;
-	};
+	}
 	
 	.swiper-container2 .swiper-slide {
 		height: 25px;
 	}
 	
-	.borderBox {
-		border-top: 10px solid #f5f5f5;
-	}
-	
 	.borderPadding {
 		padding: 10px;
+		padding-left: 0px;
 	}
 	
 	.one_Title {
 		font-weight: bold;
-		font-size: 18px;
-		line-height: 18px;
-		margin-top: 10px;
-		margin-bottom: 5px;
+		font-size: 14px;
+		margin-top: 5px;
+		margin-bottom: 3px;
 	}
 	
 	.one_Title span {
@@ -285,16 +283,22 @@
 	}
 	
 	.newBox {
-		margin-top: 10px;
+		overflow: hidden;
+		padding: 0 12px;
 	}
 	
 	.newBox a {
 		display: block;
 	}
 	
-	.newBox div {}
+	.newBox div {
+		float: left;
+		width: 32%;
+		margin-right: 2%;
+		margin-top: 10px;
+	}
 	
-	.newBox div:last-child {
+	.newBox div:nth-of-type(3n) {
 		margin-right: 0;
 	}
 	
@@ -355,6 +359,35 @@
 			display: block;
 			border-radius: 15px;
 			line-height: 30px;
+		}
+	}
+	
+	.headline {
+		height: 56px;
+		background: #FF9600;
+		margin-left: -10px;
+		margin-right: -10px;
+		color: #fff;
+	}
+	.classify{
+		overflow: hidden;
+		div{
+			float: left;
+			width: 50%;
+			padding: 17px 30px;
+			border-bottom: 1px solid #c7c7c7;
+		}
+		div:nth-of-type(odd){
+			border-right:1px solid #c7c7c7;
+		}
+		div:nth-of-type(even){
+			border-right:1px solid #fff;
+		}
+		div:last-child{
+			border-bottom: none;
+		}
+		div:nth-last-child(2){
+			border-bottom: none;
 		}
 	}
 </style>

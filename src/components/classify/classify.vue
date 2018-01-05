@@ -115,17 +115,17 @@
 		},
 		mounted(){
 			let that = this;
-		    let data = that.$store.state.classify;
-		    if(data){
-		    	that.Load = false;
-            	that.data = data;
-            	that.$nextTick(function(){
-            		setTimeout(function(){
-                         Global.reset.LazyLoadImg("#content");
-                    },600)
-            	})
-		    	return false;
-		    }
+		    //let data = that.$store.state.classify;
+//		    if(data){
+//		    	that.Load = false;
+//          	that.data = data;
+//          	that.$nextTick(function(){
+//          		setTimeout(function(){
+//                       Global.reset.LazyLoadImg("#content");
+//                  },600)
+//          	})
+//		    	return false;
+//		    }
 			this.$nextTick(function(){
 				$.ajax({
 					url:url.url+"category",
@@ -135,7 +135,7 @@
 						if(e.code == '10000'){
 							that.Load = false;
 							that.data = e.data;
-							that.$store.state.classify=e.data;
+							//that.$store.state.classify=e.data;
 							Global.reset.LazyLoadImg("#content");
 							setTimeout(function(){
 								Global.reset.LazyLoadImg("#content");
